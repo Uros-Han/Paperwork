@@ -128,23 +128,24 @@ public class Team : MonoBehaviour {
 		}
 	}
 
-    int m_iCurAddProject = -1;
     public void NewProject()
     {
         switch (UICamera.selectedObject.name)
         {
             case "Slot0":
-                m_iCurAddProject = 0;
+				GameMgr.getInstance.m_iCurAddProject = 0;
                 break;
 
-            case "Slot1":
-                m_iCurAddProject = 1;
+			case "Slot1":
+				GameMgr.getInstance.m_iCurAddProject = 1;
                 break;
 
             case "Slot2":
-                m_iCurAddProject = 2;
+				GameMgr.getInstance.m_iCurAddProject = 2;
                 break;
         }
+		GameMgr.getInstance.m_iCurAddTeam = m_iTagIdx;
+
         ObjFactory.getInstance.ProjectAdder();
 
     }

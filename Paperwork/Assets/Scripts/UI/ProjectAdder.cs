@@ -83,7 +83,7 @@ public class ProjectAdder : MonoBehaviour {
         {
             if (GameMgr.getInstance.m_iMoney >= GameMgr.getInstance.m_iUnlockMoney[iTouchedClassIdx]) //충분한 돈
             {
-                GameMgr.getInstance.m_iMoney -= GameMgr.getInstance.m_iUnlockMoney[iTouchedClassIdx];
+				ObjFactory.getInstance.MoneyEffect (GameMgr.getInstance.m_iUnlockMoney [iTouchedClassIdx], false);
 
                 //언락! 정보 보여주기
                 InfoSetting(iTouchedClassIdx);
@@ -108,7 +108,7 @@ public class ProjectAdder : MonoBehaviour {
         {
             if (GameMgr.getInstance.m_iMoney >= GameMgr.getInstance.m_iStartMoney[iTouchedClassIdx]) //프로젝트 시작하기 충분한 돈
             {
-
+				ObjFactory.getInstance.ProjectDetailSetter (iTouchedClassIdx);
             }else//프로젝트 시작할돈 모자람
             {
                 ObjFactory.getInstance.ProjectAdderError(UICamera.selectedObject.transform.parent);

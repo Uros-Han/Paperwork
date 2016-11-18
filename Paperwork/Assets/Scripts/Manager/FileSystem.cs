@@ -93,14 +93,14 @@ public class GameData
     public int m_iMoney;
     public int m_iUnlockProject;
     public int m_iEmployee;
-    public List<Project> m_ListProjectInProgress;
+    public List<Project_value> m_ListProjectInProgress;
 
     public void Initialize()
     {
         m_iMoney = 1000;
-        m_iUnlockProject = 0;
+        m_iUnlockProject = 1;
         m_iEmployee = 1;
-        m_ListProjectInProgress = new List<Project>();
+        m_ListProjectInProgress = new List<Project_value>();
         m_savedTime = System.DateTime.Now;
     }
 };

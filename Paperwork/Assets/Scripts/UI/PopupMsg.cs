@@ -45,7 +45,7 @@ public class PopupMsg : MonoBehaviour {
         {
             if (GameMgr.getInstance.m_iMoney >= 1000) //돈은 충분하다! 팀 구입하자
             {
-                GameMgr.getInstance.m_iMoney -= 1000;
+				ObjFactory.getInstance.MoneyEffect (1000, false);
 
                 //+모양 태그찾기
                 Transform Teams = GameObject.Find("Teams").transform;
@@ -92,7 +92,7 @@ public class PopupMsg : MonoBehaviour {
             else //돈이모자라서;; 팀을 못사요;
             {
                 GameObject PopUpMsg = ObjFactory.getInstance.PopUpMsg(Localization.Get("NeedMoreMoney"), POPUP_TYPE.CONFIRM);
-                PopUpMsg.GetComponent<PopupMsg>().onPressBtn += new PopupMsg.OnPressBtn(PopUpMsg.GetComponent<PopupMsg>().NeedMoreMoney);
+                PopUpMsg.GetComponent<PopupMsg>().onPressBtn += new PopupMsg.OnPressBtn(PopUpMsg.GetComponent<PopupMsg>().DestroyThisYesBtn);
             }
 
             StartCoroutine(DestroyMsg());
@@ -103,7 +103,36 @@ public class PopupMsg : MonoBehaviour {
         }
     }
 
-    public void NeedMoreMoney(string str)
+	public void HireApply(string str)
+	{
+		if (str.Equals ("Yes")) {
+			if (GameMgr.getInstance.m_iMoney >= 100) {
+				ObjFactory.getInstance.MoneyEffect (100, false);
+				GameMgr.getInstance.m_iEmployee += 1;
+
+				GameObject PopUpMsg = ObjFactory.getInstance.PopUpMsg(Localization.Get("HireDone"), POPUP_TYPE.CONFIRM);
+				PopUpMsg.GetComponent<PopupMsg>().onPressBtn += new PopupMsg.OnPressBtn(PopUpMsg.GetComponent<PopupMsg>().HireDone);
+			} else {
+				GameObject PopUpMsg = ObjFactory.getInstance.PopUpMsg(Localization.Get("NeedMoreMoney"), POPUP_TYPE.CONFIRM);
+				PopUpMsg.GetComponent<PopupMsg>().onPressBtn += new PopupMsg.OnPressBtn(PopUpMsg.GetComponent<PopupMsg>().DestroyThisYesBtn);
+			}
+
+			StartCoroutine(DestroyMsg());
+		} else {
+			StartCoroutine(DestroyMsg());
+		}
+	}
+
+	void HireDone(string str)
+	{
+		if (str.Equals("Yes"))
+		{
+			StartCoroutine(DestroyMsg());
+			GameObject.Find ("ProjectDetailSetter(Clone)").GetComponent<ProjectDetailSetter> ().EmployeeSetting ();
+		}
+	}
+
+    public void DestroyThisYesBtn(string str)
     {
         if (str.Equals("Yes"))
         {

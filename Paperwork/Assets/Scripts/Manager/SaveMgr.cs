@@ -357,7 +357,7 @@ public class SaveMgr : MonoBehaviour
         m_Gamedata = MyGameData;
 
         Debug.Log("Create Save Data Complete");
-        
+		GameData_Load ();
     }
 
 }

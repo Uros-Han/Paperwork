@@ -12,6 +12,6 @@ public class MoneyUI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        label.text = gMgr.m_iMoney + " " + Localization.Get("Currency");
+		label.text = string.Format (Localization.Get ("Currency"), gMgr.m_iMoney);
     }
 }
